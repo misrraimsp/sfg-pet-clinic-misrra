@@ -1,12 +1,7 @@
 package guru.springframework.sfgpetclinicmisrra.services;
 
-import guru.springframework.sfgpetclinicmisrra.model.Owner;
+import guru.springframework.sfgpetclinicmisrra.model.Pet;
 
-import java.util.Set;
+public interface PetService extends CrudService<Pet, Long> {
 
-public interface PetService {
-
-    Owner findById(Long id);
-    Owner save(Owner owner);
-    Set<Owner> findAll();
 }

@@ -1,10 +1,7 @@
 package guru.springframework.sfgpetclinicmisrra.bootstrap;
 
 import guru.springframework.sfgpetclinicmisrra.model.*;
-import guru.springframework.sfgpetclinicmisrra.services.OwnerService;
-import guru.springframework.sfgpetclinicmisrra.services.PetTypeService;
-import guru.springframework.sfgpetclinicmisrra.services.SpecialityService;
-import guru.springframework.sfgpetclinicmisrra.services.VetService;
+import guru.springframework.sfgpetclinicmisrra.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +14,15 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
     public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
-                      SpecialityService specialityService) {
+                      SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -81,7 +80,7 @@ public class DataLoader implements CommandLineRunner {
 
         ownerService.save(owner2);
 
-        System.out.println("Loaded Owners...");
+        System.out.println("Loaded Owners and their Pets...");
 
         Speciality radiology = new Speciality();
         radiology.setDescription("Radiology");
@@ -112,5 +111,14 @@ public class DataLoader implements CommandLineRunner {
         vetService.save(vet2);
 
         System.out.println("Loaded Vets...");
+
+        Visit catVisit = new Visit();
+        catVisit.setPet(fionasCat);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("Sneezy Kitty");
+
+        visitService.save(catVisit);
+
+        System.out.println("Loaded Visits...");
     }
 }
